@@ -1,0 +1,671 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Shivraj Singh Chauhan | Professional Portfolio</title>
+    
+    <!-- Bootstrap 5 CSS -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+    
+    <!-- Google Fonts: Inter -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    
+    <!-- Lucide Icons -->
+    <script src="https://unpkg.com/lucide@latest"></script>
+
+    <style>
+        :root {
+            --navy: #1a237e;
+            --apple-gray: #F8F9FA;
+            --text-main: #1d1d1f;
+            --text-secondary: #86868b;
+            --border-color: rgba(0, 0, 0, 0.08);
+        }
+
+        body {
+            font-family: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
+            background-color: #FFFFFF;
+            color: var(--text-main);
+            overflow-x: hidden;
+            -webkit-font-smoothing: antialiased;
+        }
+
+        /* Apple-style Scrollbar */
+        ::-webkit-scrollbar { width: 8px; }
+        ::-webkit-scrollbar-track { background: transparent; }
+        ::-webkit-scrollbar-thumb { background: #d2d2d7; border-radius: 10px; }
+        ::-webkit-scrollbar-thumb:hover { background: #86868b; }
+
+        /* Typography */
+        h1, h2, h3, h4, h5 { font-weight: 700; letter-spacing: -0.02em; }
+        .text-navy { color: var(--navy); }
+        .bg-navy { background-color: var(--navy); }
+        .bg-apple-gray { background-color: var(--apple-gray); }
+
+        /* Glassmorphism */
+        .glass {
+            background: rgba(255, 255, 255, 0.7);
+            backdrop-filter: blur(20px);
+            -webkit-backdrop-filter: blur(20px);
+            border-bottom: 1px solid var(--border-color);
+        }
+
+        /* Navigation */
+        nav {
+            position: fixed;
+            top: 0;
+            width: 100%;
+            z-index: 1000;
+            height: 64px;
+            display: flex;
+            align-items: center;
+        }
+
+        .nav-link {
+            font-size: 14px;
+            font-weight: 500;
+            color: var(--text-secondary);
+            transition: color 0.3s ease;
+        }
+
+        .nav-link:hover { color: var(--navy); }
+
+        /* Hero */
+        .hero-section {
+            min-height: 100vh;
+            display: flex;
+            align-items: center;
+            padding-top: 64px;
+            position: relative;
+        }
+
+        .hero-title {
+            font-size: clamp(3rem, 8vw, 6rem);
+            line-height: 1.05;
+            margin-bottom: 1.5rem;
+        }
+
+        .hero-subtitle {
+            font-size: clamp(1.25rem, 3vw, 1.75rem);
+            font-weight: 300;
+            color: var(--text-secondary);
+        }
+
+        /* 3D Canvas */
+        #three-canvas {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            z-index: -1;
+            pointer-events: none;
+        }
+
+        /* Expertise Cards */
+        .expertise-card {
+            background: #fff;
+            border-radius: 28px;
+            padding: 3rem;
+            border: 1px solid var(--border-color);
+            transition: all 0.5s cubic-bezier(0.2, 0.8, 0.2, 1);
+            height: 100%;
+        }
+
+        .expertise-card:hover {
+            transform: translateY(-10px) scale(1.02);
+            box-shadow: 0 30px 60px rgba(0,0,0,0.06);
+        }
+
+        .icon-box {
+            width: 64px;
+            height: 64px;
+            border-radius: 18px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin-bottom: 2rem;
+            color: var(--navy);
+            background: var(--apple-gray);
+        }
+
+        /* Project Section (Pinning) */
+        .project-section {
+            background-color: var(--navy);
+            color: #fff;
+            min-height: 100vh;
+            display: flex;
+            align-items: center;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .project-visual {
+            position: relative;
+            width: 100%;
+            height: 400px;
+            background: rgba(255,255,255,0.03);
+            border-radius: 40px;
+            border: 1px solid rgba(255,255,255,0.1);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        /* Horizontal Scroll */
+        #certifications {
+            min-height: 100vh;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+        }
+
+        .cert-wrapper {
+            overflow: hidden;
+            padding: 2rem 0;
+        }
+
+        .cert-container {
+            display: flex;
+            gap: 2.5rem;
+            width: max-content;
+            padding: 0 5vw;
+            align-items: stretch;
+        }
+
+        .cert-card {
+            width: 420px;
+            background: var(--apple-gray);
+            border-radius: 40px;
+            padding: 3.5rem;
+            border: 1px solid var(--border-color);
+            flex-shrink: 0;
+            transition: transform 0.3s ease;
+        }
+
+        .cert-card:hover {
+            transform: scale(1.01);
+        }
+
+        /* Path Following Experience Section */
+        .experience-section {
+            position: relative;
+            padding: 150px 0;
+            background-color: #FFFFFF;
+            min-height: 2500px; /* Long enough for the path scroll */
+        }
+
+        .path-container {
+            position: absolute;
+            top: 0;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 100%;
+            height: 100%;
+            pointer-events: none;
+            z-index: 1;
+        }
+
+        #experience-svg {
+            width: 100%;
+            height: 100%;
+            overflow: visible;
+        }
+
+        #experience-path {
+            fill: none;
+            stroke: var(--navy);
+            stroke-width: 2;
+            stroke-dasharray: 10 10;
+            opacity: 0.15;
+        }
+
+        .traveling-spark {
+            filter: drop-shadow(0 0 10px rgba(26, 35, 126, 0.6));
+        }
+
+        .milestone {
+            position: relative;
+            z-index: 2;
+            width: 100%;
+            margin-bottom: 400px;
+            display: flex;
+            align-items: center;
+            opacity: 0;
+            transform: translateY(40px);
+            transition: opacity 0.8s ease, transform 0.8s ease;
+        }
+
+        .milestone.active {
+            opacity: 1;
+            transform: translateY(0);
+        }
+
+        .milestone-content {
+            width: 42%;
+            padding: 3rem;
+            background: #fff;
+            border-radius: 32px;
+            border: 1px solid var(--border-color);
+            box-shadow: 0 15px 40px rgba(0,0,0,0.04);
+        }
+
+        .milestone-left { justify-content: flex-start; text-align: left; }
+        .milestone-right { justify-content: flex-end; text-align: left; }
+
+        /* Buttons */
+        .btn-apple {
+            background: var(--navy);
+            color: #fff;
+            border-radius: 980px;
+            padding: 14px 32px;
+            font-weight: 600;
+            font-size: 17px;
+            border: none;
+            transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+            text-decoration: none;
+            display: inline-block;
+        }
+
+        .btn-apple:hover {
+            background: #283593;
+            transform: scale(1.05);
+            color: #fff;
+            box-shadow: 0 10px 20px rgba(26, 35, 126, 0.2);
+        }
+
+        /* Reveal Animation */
+        .reveal {
+            opacity: 0;
+            transform: translateY(40px);
+        }
+
+        @media (max-width: 768px) {
+            .hero-title { font-size: 3.5rem; }
+            .cert-card { width: 320px; padding: 2.5rem; }
+            .milestone-content { width: 90%; margin: 0 auto !important; text-align: center !important; }
+            .path-container { display: none; }
+            .experience-section { min-height: auto; padding: 80px 0; }
+            .milestone { margin-bottom: 80px; opacity: 1; transform: none; }
+        }
+    </style>
+</head>
+<body>
+
+    <!-- 3D Background -->
+    <canvas id="three-canvas"></canvas>
+
+    <!-- Navigation -->
+    <nav class="glass">
+        <div class="container d-flex justify-content-between align-items-center">
+            <a href="#" class="text-decoration-none fw-bold text-navy fs-4">SSC.</a>
+            <div class="d-none d-md-flex gap-5">
+                <a href="#expertise" class="nav-link text-decoration-none">Expertise</a>
+                <a href="#projects" class="nav-link text-decoration-none">Projects</a>
+                <a href="#certifications" class="nav-link text-decoration-none">Certifications</a>
+                <a href="#experience" class="nav-link text-decoration-none">Experience</a>
+            </div>
+            <a href="mailto:sschouhan1820@gmail.com" class="btn-apple">Contact</a>
+        </div>
+    </nav>
+
+    <!-- Hero Section -->
+    <section class="hero-section container">
+        <div class="row">
+            <div class="col-lg-10">
+                <h1 class="hero-title text-navy">
+                    Shivraj Singh Chauhan
+                </h1>
+                <p class="hero-subtitle mb-5">
+                    BCA in AI & Automation <span style="opacity: 0.2; margin: 0 15px;">|</span> Professional Administrator
+                </p>
+                <div class="d-flex flex-wrap gap-3">
+                    <div class="bg-apple-gray text-navy px-4 py-2 rounded-pill border border-light-subtle d-flex align-items-center">
+                        <i data-lucide="cpu" class="me-2" style="width: 16px;"></i>
+                        <span class="small fw-bold">AI Specialist</span>
+                    </div>
+                    <div class="bg-apple-gray text-navy px-4 py-2 rounded-pill border border-light-subtle d-flex align-items-center">
+                        <i data-lucide="database" class="me-2" style="width: 16px;"></i>
+                        <span class="small fw-bold">ERP Architect</span>
+                    </div>
+                    <div class="bg-apple-gray text-navy px-4 py-2 rounded-pill border border-light-subtle d-flex align-items-center">
+                        <i data-lucide="shield-check" class="me-2" style="width: 16px;"></i>
+                        <span class="small fw-bold">Admin Expert</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Expertise Section -->
+    <section id="expertise" class="py-5 bg-apple-gray">
+        <div class="container py-5">
+            <div class="mb-5 reveal">
+                <p class="text-uppercase tracking-widest fw-bold text-navy small mb-3">Expertise</p>
+                <h2 class="display-4 fw-bold">Core Administrative Systems</h2>
+            </div>
+            
+            <div class="row g-4">
+                <div class="col-md-4 reveal">
+                    <div class="expertise-card">
+                        <div class="icon-box">
+                            <i data-lucide="database" style="width: 32px; height: 32px;"></i>
+                        </div>
+                        <h4 class="mb-4">UDISE+</h4>
+                        <p class="text-secondary leading-relaxed">Expert management of Unified District Information System for Education Plus, ensuring data integrity and reporting accuracy.</p>
+                    </div>
+                </div>
+                <div class="col-md-4 reveal">
+                    <div class="expertise-card">
+                        <div class="icon-box">
+                            <i data-lucide="shield-check" style="width: 32px; height: 32px;"></i>
+                        </div>
+                        <h4 class="mb-4">RTE (PSP)</h4>
+                        <p class="text-secondary leading-relaxed">Specialized in Private School Portal operations for Right to Education compliance and student admission workflows.</p>
+                    </div>
+                </div>
+                <div class="col-md-4 reveal">
+                    <div class="expertise-card">
+                        <div class="icon-box">
+                            <i data-lucide="school" style="width: 32px; height: 32px;"></i>
+                        </div>
+                        <h4 class="mb-4">CBSE (OASIS)</h4>
+                        <p class="text-secondary leading-relaxed">Comprehensive handling of Online Affiliated Schools Information System for CBSE compliance and examination management.</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Project SCHOOL+ (Pinned Section) -->
+    <section id="projects" class="project-section">
+        <div class="container">
+            <div class="row align-items-center py-5">
+                <div class="col-lg-6 project-content">
+                    <p class="text-uppercase tracking-widest fw-bold text-white-50 small mb-3">Featured Project</p>
+                    <h2 class="display-3 fw-bold mb-4">SCHOOL+ ERP</h2>
+                    <p class="lead text-white-50 mb-5">
+                        A premium School Management System built with PHP and MySQL. Designed to streamline administrative workflows, student tracking, and financial reporting for modern educational institutions.
+                    </p>
+                    <ul class="list-unstyled mb-5">
+                        <li class="mb-4 d-flex align-items-center"><i data-lucide="check-circle" class="me-3 text-white-50" style="width: 20px;"></i>Automated Fee Management</li>
+                        <li class="mb-4 d-flex align-items-center"><i data-lucide="check-circle" class="me-3 text-white-50" style="width: 20px;"></i>Real-time Attendance Tracking</li>
+                        <li class="mb-4 d-flex align-items-center"><i data-lucide="check-circle" class="me-3 text-white-50" style="width: 20px;"></i>Comprehensive Exam Reports</li>
+                    </ul>
+                    <a href="#" class="btn btn-light rounded-pill px-5 py-3 fw-bold text-navy">View Case Study</a>
+                </div>
+                <div class="col-lg-6 d-none d-lg-block">
+                    <div class="project-visual">
+                        <i data-lucide="code-2" style="width: 160px; height: 160px; opacity: 0.15; color: white;"></i>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Certifications (Horizontal Scroll) -->
+    <section id="certifications" class="overflow-hidden">
+        <div class="container">
+            <div class="mb-5 reveal">
+                <p class="text-uppercase tracking-widest fw-bold text-navy small mb-3">Credentials</p>
+                <h2 class="display-4 fw-bold">Professional Certifications</h2>
+            </div>
+        </div>
+        
+        <div class="cert-wrapper">
+            <div class="cert-container">
+                <div class="cert-card">
+                    <div class="icon-box shadow-sm mb-4 bg-white">
+                        <i data-lucide="cpu"></i>
+                    </div>
+                    <p class="text-navy opacity-40 fw-bold small mb-2">MICROSOFT</p>
+                    <h4 class="mb-4">Generative AI Specialist</h4>
+                    <p class="text-secondary leading-relaxed">Mastery in implementing LLMs and AI-driven automation workflows for enterprise efficiency.</p>
+                </div>
+                <div class="cert-card">
+                    <div class="icon-box shadow-sm mb-4 bg-white">
+                        <i data-lucide="award"></i>
+                    </div>
+                    <p class="text-navy opacity-40 fw-bold small mb-2">OPENAI</p>
+                    <h4 class="mb-4">Prompt Engineering</h4>
+                    <p class="text-secondary leading-relaxed">Advanced techniques in crafting high-precision prompts for complex reasoning and creative generation.</p>
+                </div>
+                <div class="cert-card">
+                    <div class="icon-box shadow-sm mb-4 bg-white">
+                        <i data-lucide="database"></i>
+                    </div>
+                    <p class="text-navy opacity-40 fw-bold small mb-2">GOOGLE CLOUD</p>
+                    <h4 class="mb-4">Cloud Administration</h4>
+                    <p class="text-secondary leading-relaxed">Infrastructure management and scalable deployment strategies for modern cloud-native applications.</p>
+                </div>
+                <div class="cert-card">
+                    <div class="icon-box shadow-sm mb-4 bg-white">
+                        <i data-lucide="briefcase"></i>
+                    </div>
+                    <p class="text-navy opacity-40 fw-bold small mb-2">IBM</p>
+                    <h4 class="mb-4">Data Science Professional</h4>
+                    <p class="text-secondary leading-relaxed">Statistical analysis and predictive modeling for business intelligence and data-driven decision making.</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Experience Section (Path Following) -->
+    <section id="experience" class="experience-section">
+        <div class="container">
+            <div class="text-center mb-5 reveal">
+                <p class="text-uppercase tracking-widest fw-bold text-navy small mb-3">Journey</p>
+                <h2 class="display-4 fw-bold">Experience & Education</h2>
+            </div>
+
+            <div class="path-container">
+                <svg id="experience-svg" viewBox="0 0 1000 2500" preserveAspectRatio="none">
+                    <path id="experience-path" d="M500 0 C750 600 250 1200 500 1800 C650 2100 350 2300 500 2500" />
+                    <circle id="traveling-spark" r="10" fill="#1a237e" class="traveling-spark" />
+                </svg>
+            </div>
+
+            <div class="milestone milestone-right" id="milestone-1">
+                <div class="milestone-content">
+                    <span class="badge bg-navy bg-opacity-10 text-navy px-3 py-2 rounded-pill mb-4">Milestone 1</span>
+                    <h4 class="mb-2">Professional Administrator & Coordinator</h4>
+                    <p class="text-secondary leading-relaxed">Managed high-stakes data and compliance for Sarvoday Convent School, ensuring seamless administrative operations and regulatory adherence.</p>
+                </div>
+            </div>
+
+            <div class="milestone milestone-left" id="milestone-2">
+                <div class="milestone-content">
+                    <span class="badge bg-navy bg-opacity-10 text-navy px-3 py-2 rounded-pill mb-4">Milestone 2</span>
+                    <h4 class="mb-2">Government Systems Specialist</h4>
+                    <p class="text-secondary leading-relaxed">Handled enrollment and scholarship tracking (NMMS) via the Shala Darpan Portal, navigating complex government digital infrastructures for educational impact.</p>
+                </div>
+            </div>
+
+            <div class="milestone milestone-right" id="milestone-3">
+                <div class="milestone-content">
+                    <span class="badge bg-navy bg-opacity-10 text-navy px-3 py-2 rounded-pill mb-4">Milestone 3</span>
+                    <h4 class="mb-2">Full-Stack Developer (Freelance)</h4>
+                    <p class="text-secondary leading-relaxed">Architected custom PHP/MySQL web panels and the 'School+' management ERP, delivering tailored digital solutions to optimize school administration.</p>
+                </div>
+            </div>
+
+            <div class="milestone milestone-left" id="milestone-4">
+                <div class="milestone-content">
+                    <span class="badge bg-navy bg-opacity-10 text-navy px-3 py-2 rounded-pill mb-4">Milestone 4</span>
+                    <h4 class="mb-2">BCA (AI & Automation)</h4>
+                    <p class="text-secondary leading-relaxed">Graduated from Poornima University, specializing in automated digital systems and cutting-edge AI technologies for professional excellence.</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer class="py-5 border-top bg-white">
+        <div class="container d-flex flex-column flex-md-row justify-content-between align-items-center">
+            <div class="mb-4 mb-md-0">
+                <span class="fw-bold text-navy fs-3">SSC.</span>
+                <p class="text-secondary small mt-2 mb-0">© 2026 Shivraj Singh Chauhan. All rights reserved.</p>
+            </div>
+            <div class="d-flex gap-5">
+                <a href="#" class="text-secondary text-decoration-none small fw-medium hover-navy">LinkedIn</a>
+                <a href="#" class="text-secondary text-decoration-none small fw-medium hover-navy">GitHub</a>
+                <a href="mailto:sschouhan1820@gmail.com" class="text-secondary text-decoration-none small fw-medium hover-navy">Email</a>
+            </div>
+        </div>
+    </footer>
+
+    <!-- Scripts -->
+    <!-- Bootstrap JS -->
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+    
+    <!-- Three.js -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/0.158.0/three.min.js"></script>
+    
+    <!-- GSAP & Plugins -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/gsap.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/ScrollTrigger.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/MotionPathPlugin.min.js"></script>
+
+    <script>
+        // Initialize Lucide Icons
+        lucide.createIcons();
+
+        // Three.js Background
+        const initThree = () => {
+            const canvas = document.getElementById('three-canvas');
+            const scene = new THREE.Scene();
+            const camera = new THREE.PerspectiveCamera(75, window.innerWidth / window.innerHeight, 0.1, 1000);
+            const renderer = new THREE.WebGLRenderer({ canvas, alpha: true, antialias: true });
+
+            renderer.setSize(window.innerWidth, window.innerHeight);
+            renderer.setPixelRatio(Math.min(window.devicePixelRatio, 2));
+
+            const geometry = new THREE.BoxGeometry(2.5, 2.5, 2.5);
+            const material = new THREE.MeshBasicMaterial({ 
+                color: 0x1a237e, 
+                wireframe: true, 
+                transparent: true, 
+                opacity: 0.04 
+            });
+            const cube = new THREE.Mesh(geometry, material);
+            scene.add(cube);
+
+            camera.position.z = 6;
+
+            const animate = () => {
+                requestAnimationFrame(animate);
+                cube.rotation.x += 0.0008;
+                cube.rotation.y += 0.0008;
+                renderer.render(scene, camera);
+            };
+            animate();
+
+            window.addEventListener('resize', () => {
+                camera.aspect = window.innerWidth / window.innerHeight;
+                camera.updateProjectionMatrix();
+                renderer.setSize(window.innerWidth, window.innerHeight);
+            });
+        };
+
+        // GSAP Animations
+        const initGSAP = () => {
+            gsap.registerPlugin(ScrollTrigger, MotionPathPlugin);
+
+            // Reveal Sections
+            gsap.utils.toArray('.reveal').forEach(elem => {
+                gsap.fromTo(elem, 
+                    { y: 60, opacity: 0 },
+                    { 
+                        y: 0, 
+                        opacity: 1, 
+                        duration: 1.2, 
+                        ease: 'power4.out',
+                        scrollTrigger: {
+                            trigger: elem,
+                            start: 'top 88%',
+                            toggleActions: 'play none none none'
+                        }
+                    }
+                );
+            });
+
+            // Pinning for SCHOOL+
+            ScrollTrigger.create({
+                trigger: '#projects',
+                start: 'top top',
+                end: '+=150%',
+                pin: true,
+                pinSpacing: true,
+                scrub: 1,
+            });
+
+            gsap.to('.project-content', {
+                opacity: 1,
+                y: 0,
+                scrollTrigger: {
+                    trigger: '#projects',
+                    start: 'top top',
+                    end: '+=80%',
+                    scrub: true,
+                }
+            });
+
+            // Horizontal Scroll Certifications
+            const certContainer = document.querySelector('.cert-container');
+            const certWrapper = document.querySelector('.cert-wrapper');
+            
+            gsap.to(certContainer, {
+                x: () => -(certContainer.scrollWidth - window.innerWidth),
+                ease: 'none',
+                scrollTrigger: {
+                    trigger: '#certifications',
+                    start: 'top top',
+                    end: () => `+=${certContainer.scrollWidth}`,
+                    pin: true,
+                    scrub: 1,
+                    snap: 1 / (document.querySelectorAll('.cert-card').length - 1),
+                    invalidateOnRefresh: true,
+                }
+            });
+
+            // Path Following Experience
+            const experienceTL = gsap.timeline({
+                scrollTrigger: {
+                    trigger: ".experience-section",
+                    start: "top center",
+                    end: "bottom center",
+                    scrub: 1
+                }
+            });
+
+            experienceTL.to("#traveling-spark", {
+                motionPath: {
+                    path: "#experience-path",
+                    align: "#experience-path",
+                    alignOrigin: [0.5, 0.5]
+                },
+                ease: "none"
+            });
+
+            // Milestone Triggers
+            const milestoneIds = ["#milestone-1", "#milestone-2", "#milestone-3", "#milestone-4"];
+            milestoneIds.forEach(id => {
+                ScrollTrigger.create({
+                    trigger: id,
+                    start: "top 75%",
+                    onEnter: () => document.querySelector(id).classList.add('active'),
+                    onLeaveBack: () => document.querySelector(id).classList.remove('active')
+                });
+            });
+        };
+
+        window.onload = () => {
+            initThree();
+            initGSAP();
+        };
+    </script>
+</body>
+</html>
